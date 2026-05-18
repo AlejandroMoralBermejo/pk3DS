@@ -29,7 +29,15 @@ public static class PresetManager
         string path = GetPresetPath(name);
         if (!File.Exists(path))
             return null;
-        ActivePreset = JsonSerializer.Deserialize<RandomizerPreset>(File.ReadAllText(path), JsonOptions);
+        try
+        {
+            ActivePreset = JsonSerializer.Deserialize<RandomizerPreset>(File.ReadAllText(path), JsonOptions);
+        }
+        catch
+        {
+            ActivePreset = null;
+            return null;
+        }
         return ActivePreset;
     }
 
@@ -83,6 +91,9 @@ public static class PresetManager
             case MartEditor7 me7:
                 ApplySettings(me7, "ME7", ActivePreset);
                 break;
+            case MartEditor6 me6:
+                ApplySettings(me6, "ME6", ActivePreset);
+                break;
             case MoveEditor7 mve7:
                 ApplySettings(mve7, "MVE7", ActivePreset);
                 break;
@@ -129,6 +140,9 @@ public static class PresetManager
             case MartEditor7 me7:
                 CaptureSettings(me7, "ME7", ActivePreset);
                 break;
+            case MartEditor6 me6:
+                CaptureSettings(me6, "ME6", ActivePreset);
+                break;
             case MoveEditor7 mve7:
                 CaptureSettings(mve7, "MVE7", ActivePreset);
                 break;
@@ -161,6 +175,9 @@ public static class PresetManager
                 break;
             case MartEditor7 me7:
                 existing.AddRange(me7.GetSettings().Select(kvp => new PresetEntry { Form = formKey, Name = kvp.Key, Value = kvp.Value?.ToString() ?? "" }));
+                break;
+            case MartEditor6 me6:
+                existing.AddRange(me6.GetSettings().Select(kvp => new PresetEntry { Form = formKey, Name = kvp.Key, Value = kvp.Value?.ToString() ?? "" }));
                 break;
             case MoveEditor7 mve7:
                 existing.AddRange(mve7.GetSettings().Select(kvp => new PresetEntry { Form = formKey, Name = kvp.Key, Value = kvp.Value?.ToString() ?? "" }));

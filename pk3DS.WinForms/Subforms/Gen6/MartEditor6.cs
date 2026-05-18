@@ -23,6 +23,8 @@ public partial class MartEditor6 : Form
         SetupDGV();
         CB_Location.Items.AddRange(locations);
         CB_Location.SelectedIndex = 0;
+        FormClosing += MartEditor6_FormClosing;
+        PresetManager.ApplyPresetToForm(this);
     }
 
     private static int GetDataOffset(byte[] data)
@@ -271,4 +273,30 @@ private void B_Randomize_Click(object sender, EventArgs e)
         }
 WinFormsUtil.Alert("Randomized!");
     }
+
+    private void MartEditor6_FormClosing(object sender, FormClosingEventArgs e)
+    {
+        PresetManager.CaptureFormSettings(this);
+    }
+
+    public Dictionary<string, object> GetSettings()
+    {
+        return new Dictionary<string, object>
+        {
+            ["CHK_XItems"] = CHK_XItems.Checked,
+        };
+    }
+
+    public void SetSettings(Dictionary<string, object> settings)
+    {
+        foreach (var kvp in settings)
+        {
+            var ctrl = GetControl(kvp.Key);
+            if (ctrl == null) continue;
+            if (kvp.Value is bool b && ctrl is CheckBox cb)
+                cb.Checked = b;
+        }
+    }
+
+    private Control? GetControl(string name) => Controls.Find(name, true).FirstOrDefault();
 }
