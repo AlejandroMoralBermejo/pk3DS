@@ -1579,4 +1579,9 @@ public sealed partial class Main : Form
         }
         WinFormsUtil.Alert("Unable to set seed.");
     }
+
+    private void Menu_Presets_Click(object sender, EventArgs e)
+    {
+        new PresetUI().ShowDialog();
+    }
 }

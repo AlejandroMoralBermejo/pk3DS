@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Drawing;
 using System.Drawing.Drawing2D;
 using System.IO;
@@ -515,6 +516,44 @@ public partial class SMWE : Form
     {
         RandSettings.SetFormSettings(this, GB_Tweak.Controls);
     }
+
+    public Dictionary<string, object> GetSettings()
+    {
+        return new Dictionary<string, object>
+        {
+            ["CB_SlotRand"] = CB_SlotRand.SelectedIndex,
+            ["NUD_LevelAmp"] = NUD_LevelAmp.Value,
+            ["CHK_Level"] = CHK_Level.Checked,
+            ["CHK_G1"] = CHK_G1.Checked,
+            ["CHK_G2"] = CHK_G2.Checked,
+            ["CHK_G3"] = CHK_G3.Checked,
+            ["CHK_G4"] = CHK_G4.Checked,
+            ["CHK_G5"] = CHK_G5.Checked,
+            ["CHK_G6"] = CHK_G6.Checked,
+            ["CHK_G7"] = CHK_G7.Checked,
+            ["CHK_E"] = CHK_E.Checked,
+            ["CHK_L"] = CHK_L.Checked,
+            ["CHK_BST"] = CHK_BST.Checked,
+            ["CHK_MegaForm"] = CHK_MegaForm.Checked,
+        };
+    }
+
+    public void SetSettings(Dictionary<string, object> settings)
+    {
+        foreach (var kvp in settings)
+        {
+            var ctrl = GetControl(kvp.Key);
+            if (ctrl == null) continue;
+            if (kvp.Value is bool b && ctrl is CheckBox cb)
+                cb.Checked = b;
+            else if (kvp.Value is int i && ctrl is ComboBox combo)
+                combo.SelectedIndex = i;
+            else if (kvp.Value is decimal d && ctrl is NumericUpDown nud)
+                nud.Value = d;
+        }
+    }
+
+    private Control? GetControl(string name) => Controls.Find(name, true).FirstOrDefault();
 }
 
 public static class Extensions

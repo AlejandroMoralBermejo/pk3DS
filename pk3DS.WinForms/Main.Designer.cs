@@ -58,8 +58,10 @@ sealed partial class Main
         this.Menu_3DS = new System.Windows.Forms.ToolStripMenuItem();
         this.Menu_Patch = new System.Windows.Forms.ToolStripMenuItem();
         this.Menu_SMDH = new System.Windows.Forms.ToolStripMenuItem();
+        this.menuPresets = new System.Windows.Forms.ToolStripMenuItem();
         this.randomizationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
         this.setInt32SeedToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+        this.menuPresets = new System.Windows.Forms.ToolStripMenuItem();
         this.Menu_Options = new System.Windows.Forms.ToolStripMenuItem();
         this.Menu_Language = new System.Windows.Forms.ToolStripMenuItem();
         this.CB_Lang = new System.Windows.Forms.ToolStripComboBox();
@@ -242,6 +244,7 @@ sealed partial class Main
             this.Menu_Extract,
             this.Menu_Rebuild,
             this.Menu_SMDH,
+            this.menuPresets,
             this.randomizationToolStripMenuItem});
         this.Menu_Tools.Name = "Menu_Tools";
         this.Menu_Tools.Size = new System.Drawing.Size(46, 20);
@@ -381,7 +384,14 @@ sealed partial class Main
         this.Menu_SMDH.Size = new System.Drawing.Size(184, 22);
         this.Menu_SMDH.Text = "SMDH Editor (Icon)";
         this.Menu_SMDH.Click += new System.EventHandler(this.Menu_SMDH_Click);
-        // 
+        //
+        // menuPresets
+        //
+        this.menuPresets.Name = "menuPresets";
+        this.menuPresets.Size = new System.Drawing.Size(184, 22);
+        this.menuPresets.Text = "Presets";
+        this.menuPresets.Click += new System.EventHandler(this.Menu_Presets_Click);
+        //
         // randomizationToolStripMenuItem
         // 
         this.randomizationToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
@@ -882,6 +892,7 @@ sealed partial class Main
     private System.Windows.Forms.Button B_TM;
     private System.Windows.Forms.ToolStripMenuItem randomizationToolStripMenuItem;
     private System.Windows.Forms.ToolStripMenuItem setInt32SeedToolStripMenuItem;
+    private System.Windows.Forms.ToolStripMenuItem menuPresets;
     private System.Windows.Forms.ToolStripMenuItem Menu_Extract;
     private System.Windows.Forms.ToolStripMenuItem Menu_Extract_CXI;
     private System.Windows.Forms.ToolStripMenuItem Menu_Trimmed3DS;
