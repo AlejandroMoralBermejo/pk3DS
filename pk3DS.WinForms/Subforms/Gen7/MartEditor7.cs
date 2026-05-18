@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Windows.Forms;
 
 namespace pk3DS.WinForms;
@@ -140,13 +141,58 @@ public partial class MartEditor7 : Form
         dgvItemBP.Items.AddRange(itemlist); // add only the Names
     }
 
+    private readonly Dictionary<string, int> filteredItems = [];
+    private void TB_SearchItem_TextChanged(object sender, EventArgs e)
+    {
+        filteredItems.Clear();
+        string search = TB_SearchItem.Text.ToLower();
+        for (int i = 1; i < itemlist.Length; i++)
+        {
+            if (itemlist[i].ToLower().Contains(search))
+                filteredItems[itemlist[i]] = i;
+        }
+
+        var oldSource = dgvItem.DataSource;
+        dgvItem.DataSource = null;
+        if (search.Length == 0)
+            dgvItem.Items.AddRange(itemlist);
+        else
+            dgvItem.Items.AddRange(filteredItems.Keys.OrderBy(z => z).ToArray());
+        dgvItem.DataSource = oldSource;
+    }
+
     private int entry = -1;
 
     private void ChangeIndex(object sender, EventArgs e)
     {
-        if (entry > -1) SetList();
+        if (entry > -1) SaveLockedState(entry);
         entry = CB_Location.SelectedIndex;
         GetList();
+        RestoreLockedState(entry);
+    }
+
+    private readonly Dictionary<int, HashSet<int>> lockedItems = [];
+
+    private void SaveLockedState(int location)
+    {
+        var locked = new HashSet<int>();
+        for (int i = 0; i < dgv.Rows.Count; i++)
+        {
+            if ((bool?)dgv.Rows[i].Cells[2].Value == true)
+                locked.Add(i);
+        }
+        lockedItems[location] = locked;
+    }
+
+    private void RestoreLockedState(int location)
+    {
+        if (!lockedItems.TryGetValue(location, out var locked))
+            return;
+        foreach (var index in locked)
+        {
+            if (index < dgv.Rows.Count)
+                dgv.Rows[index].Cells[2].Value = true;
+        }
     }
 
     private void GetList()
@@ -204,6 +250,8 @@ public partial class MartEditor7 : Form
             CB_Location.SelectedIndex = i;
             for (int r = 0; r < dgv.Rows.Count; r++)
             {
+                if ((bool?)dgv.Rows[r].Cells[2].Value == true)
+                    continue;
                 int currentItem = Array.IndexOf(itemlist, dgv.Rows[r].Cells[1].Value);
                 if (CHK_XItems.Checked && XItems.Contains(currentItem))
                     continue;

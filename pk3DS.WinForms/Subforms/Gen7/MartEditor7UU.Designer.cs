@@ -48,6 +48,8 @@ partial class MartEditor7UU
         this.tabPage1 = new System.Windows.Forms.TabPage();
         this.tabPage2 = new System.Windows.Forms.TabPage();
         this.CHK_XItems = new System.Windows.Forms.CheckBox();
+        this.TB_SearchItem = new System.Windows.Forms.TextBox();
+        this.dgvLocked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
         ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
         ((System.ComponentModel.ISupportInitialize)(this.dgvbp)).BeginInit();
         this.tabControl1.SuspendLayout();
@@ -79,8 +81,9 @@ partial class MartEditor7UU
         this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
         this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dgvIndex,
-            this.dgvItem});
-        this.dgv.Location = new System.Drawing.Point(0, 27);
+            this.dgvItem,
+            this.dgvLocked});
+        this.dgv.Location = new System.Drawing.Point(0, 49);
         this.dgv.Name = "dgv";
         this.dgv.Size = new System.Drawing.Size(317, 265);
         this.dgv.TabIndex = 1;
@@ -222,6 +225,7 @@ partial class MartEditor7UU
         // 
         // tabPage1
         // 
+        this.tabPage1.Controls.Add(this.TB_SearchItem);
         this.tabPage1.Controls.Add(this.L_Mart);
         this.tabPage1.Controls.Add(this.CB_Location);
         this.tabPage1.Controls.Add(this.dgv);
@@ -232,6 +236,21 @@ partial class MartEditor7UU
         this.tabPage1.TabIndex = 0;
         this.tabPage1.Text = "Poké Mart";
         this.tabPage1.UseVisualStyleBackColor = true;
+        // 
+        // TB_SearchItem
+        // 
+        this.TB_SearchItem.Location = new System.Drawing.Point(6, 26);
+        this.TB_SearchItem.Name = "TB_SearchItem";
+        this.TB_SearchItem.PlaceholderText = "Search item...";
+        this.TB_SearchItem.Size = new System.Drawing.Size(308, 20);
+        this.TB_SearchItem.TabIndex = 16;
+        this.TB_SearchItem.TextChanged += new System.EventHandler(this.TB_SearchItem_TextChanged);
+        // 
+        // dgvLocked
+        // 
+        this.dgvLocked.HeaderText = "Locked";
+        this.dgvLocked.Name = "dgvLocked";
+        this.dgvLocked.Width = 60;
         // 
         // tabPage2
         // 
@@ -305,4 +324,6 @@ partial class MartEditor7UU
     private System.Windows.Forms.TabPage tabPage1;
     private System.Windows.Forms.TabPage tabPage2;
     private System.Windows.Forms.CheckBox CHK_XItems;
+    private System.Windows.Forms.TextBox TB_SearchItem;
+    private System.Windows.Forms.DataGridViewCheckBoxColumn dgvLocked;
 }

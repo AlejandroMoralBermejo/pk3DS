@@ -46,6 +46,8 @@ partial class MartEditor7
         this.dgvItemBP = new System.Windows.Forms.DataGridViewComboBoxColumn();
         this.dgvPriceBP = new System.Windows.Forms.DataGridViewTextBoxColumn();
         this.CHK_XItems = new System.Windows.Forms.CheckBox();
+        this.TB_SearchItem = new System.Windows.Forms.TextBox();
+        this.dgvLocked = new System.Windows.Forms.DataGridViewCheckBoxColumn();
         ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
         ((System.ComponentModel.ISupportInitialize)(this.dgvbp)).BeginInit();
         this.SuspendLayout();
@@ -69,8 +71,9 @@ partial class MartEditor7
         this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
         this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dgvIndex,
-            this.dgvItem});
-        this.dgv.Location = new System.Drawing.Point(12, 33);
+            this.dgvItem,
+            this.dgvLocked});
+        this.dgv.Location = new System.Drawing.Point(12, 55);
         this.dgv.Name = "dgv";
         this.dgv.Size = new System.Drawing.Size(300, 284);
         this.dgv.TabIndex = 1;
@@ -211,11 +214,27 @@ partial class MartEditor7
         this.CHK_XItems.Text = "Don\'t Randomize X Items (Speedrun)";
         this.CHK_XItems.UseVisualStyleBackColor = true;
         // 
+        // TB_SearchItem
+        // 
+        this.TB_SearchItem.Location = new System.Drawing.Point(12, 33);
+        this.TB_SearchItem.Name = "TB_SearchItem";
+        this.TB_SearchItem.PlaceholderText = "Search item...";
+        this.TB_SearchItem.Size = new System.Drawing.Size(300, 20);
+        this.TB_SearchItem.TabIndex = 1;
+        this.TB_SearchItem.TextChanged += new System.EventHandler(this.TB_SearchItem_TextChanged);
+        // 
+        // dgvLocked
+        // 
+        this.dgvLocked.HeaderText = "Locked";
+        this.dgvLocked.Name = "dgvLocked";
+        this.dgvLocked.Width = 60;
+        // 
         // MartEditor7
         // 
         this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         this.ClientSize = new System.Drawing.Size(639, 361);
+        this.Controls.Add(this.TB_SearchItem);
         this.Controls.Add(this.CHK_XItems);
         this.Controls.Add(this.dgvbp);
         this.Controls.Add(this.B_RandomizeBP);
@@ -257,4 +276,6 @@ partial class MartEditor7
     private System.Windows.Forms.DataGridViewComboBoxColumn dgvItemBP;
     private System.Windows.Forms.DataGridViewTextBoxColumn dgvPriceBP;
     private System.Windows.Forms.CheckBox CHK_XItems;
+    private System.Windows.Forms.TextBox TB_SearchItem;
+    private System.Windows.Forms.DataGridViewCheckBoxColumn dgvLocked;
 }

@@ -35,6 +35,7 @@ partial class MartEditor6
         this.B_Save = new System.Windows.Forms.Button();
         this.B_Cancel = new System.Windows.Forms.Button();
         this.CHK_XItems = new System.Windows.Forms.CheckBox();
+        this.TB_SearchItem = new System.Windows.Forms.TextBox();
         ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
         this.SuspendLayout();
         // 
@@ -60,9 +61,9 @@ partial class MartEditor6
                                                                  | System.Windows.Forms.AnchorStyles.Left) 
                                                                 | System.Windows.Forms.AnchorStyles.Right)));
         this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        this.dgv.Location = new System.Drawing.Point(12, 33);
+        this.dgv.Location = new System.Drawing.Point(12, 56);
         this.dgv.Name = "dgv";
-        this.dgv.Size = new System.Drawing.Size(300, 287);
+        this.dgv.Size = new System.Drawing.Size(300, 264);
         this.dgv.TabIndex = 1;
         // 
         // L_Mart
@@ -116,11 +117,21 @@ partial class MartEditor6
         this.CHK_XItems.Text = "Don\'t Randomize X Items (Speedrun)";
         this.CHK_XItems.UseVisualStyleBackColor = true;
         // 
+        // TB_SearchItem
+        // 
+        this.TB_SearchItem.Location = new System.Drawing.Point(12, 33);
+        this.TB_SearchItem.Name = "TB_SearchItem";
+        this.TB_SearchItem.PlaceholderText = "Search item...";
+        this.TB_SearchItem.Size = new System.Drawing.Size(300, 20);
+        this.TB_SearchItem.TabIndex = 6;
+        this.TB_SearchItem.TextChanged += new System.EventHandler(this.TB_SearchItem_TextChanged);
+        // 
         // MartEditor6
         // 
         this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
         this.ClientSize = new System.Drawing.Size(324, 381);
+        this.Controls.Add(this.TB_SearchItem);
         this.Controls.Add(this.CHK_XItems);
         this.Controls.Add(this.B_Cancel);
         this.Controls.Add(this.B_Save);
@@ -149,4 +160,5 @@ partial class MartEditor6
     private System.Windows.Forms.Button B_Save;
     private System.Windows.Forms.Button B_Cancel;
     private System.Windows.Forms.CheckBox CHK_XItems;
+    private System.Windows.Forms.TextBox TB_SearchItem;
 }
