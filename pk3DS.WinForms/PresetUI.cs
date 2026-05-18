@@ -157,6 +157,12 @@ public class PresetUI : Form
                 foreach (var kvp in settings)
                     preset.Settings.Add(new PresetEntry { Form = "SMWE", Name = kvp.Key, Value = kvp.Value?.ToString() ?? "" });
             }
+            if (form is TrainerRand tr6)
+            {
+                var settings = tr6.GetSettings();
+                foreach (var kvp in settings)
+                    preset.Settings.Add(new PresetEntry { Form = "TR6", Name = kvp.Key, Value = kvp.Value?.ToString() ?? "" });
+            }
         }
     }
 
@@ -171,16 +177,23 @@ public class PresetUI : Form
                     .ToDictionary(s => s.Name, s => ParseValue(s.Value, s.Name, smwe));
                 smwe.SetSettings(dict);
             }
+            if (form is TrainerRand tr6)
+            {
+                var dict = preset.Settings
+                    .Where(s => s.Form == "TR6")
+                    .ToDictionary(s => s.Name, s => ParseValue(s.Value, s.Name, tr6));
+                tr6.SetSettings(dict);
+            }
         }
     }
 
-    private object? ParseValue(string value, string name, SMWE form)
+    private object? ParseValue(string value, string name, Control parent)
     {
-        if (form.Controls.Find(name, true).FirstOrDefault() is CheckBox)
+        if (parent.Controls.Find(name, true).FirstOrDefault() is CheckBox)
             return bool.TryParse(value, out var b) ? b : false;
-        if (form.Controls.Find(name, true).FirstOrDefault() is NumericUpDown)
+        if (parent.Controls.Find(name, true).FirstOrDefault() is NumericUpDown)
             return decimal.TryParse(value, out var d) ? d : 0m;
-        if (form.Controls.Find(name, true).FirstOrDefault() is ComboBox)
+        if (parent.Controls.Find(name, true).FirstOrDefault() is ComboBox)
             return int.TryParse(value, out var i) ? i : 0;
         return null;
     }

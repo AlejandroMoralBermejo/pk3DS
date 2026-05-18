@@ -189,4 +189,45 @@ public partial class TrainerRand : Form
         //if (CB_Moves.SelectedIndex == 0)
         //    CHK_6PKM.Checked = false;
     }
+
+    public Dictionary<string, object> GetSettings()
+    {
+        return new Dictionary<string, object>
+        {
+            ["CHK_RandomPKM"] = CHK_RandomPKM.Checked,
+            ["CHK_G1"] = CHK_G1.Checked,
+            ["CHK_G2"] = CHK_G2.Checked,
+            ["CHK_G3"] = CHK_G3.Checked,
+            ["CHK_G4"] = CHK_G4.Checked,
+            ["CHK_G5"] = CHK_G5.Checked,
+            ["CHK_G6"] = CHK_G6.Checked,
+            ["CHK_L"] = CHK_L.Checked,
+            ["CHK_E"] = CHK_E.Checked,
+            ["CHK_BST"] = CHK_BST.Checked,
+            ["CHK_6PKM"] = CHK_6PKM.Checked,
+            ["CHK_RandomMegaForm"] = CHK_RandomMegaForm.Checked,
+            ["CHK_ForceFullyEvolved"] = CHK_ForceFullyEvolved.Checked,
+            ["CHK_StoryMEvos"] = CHK_StoryMEvos.Checked,
+            ["CHK_TypeTheme"] = CHK_TypeTheme.Checked,
+            ["CHK_GymTrainers"] = CHK_GymTrainers.Checked,
+            ["CB_Moves"] = CB_Moves.SelectedIndex,
+        };
+    }
+
+    public void SetSettings(Dictionary<string, object> settings)
+    {
+        foreach (var kvp in settings)
+        {
+            var ctrl = GetControl(kvp.Key);
+            if (ctrl == null) continue;
+            if (kvp.Value is bool b && ctrl is CheckBox cb)
+                cb.Checked = b;
+            else if (kvp.Value is int i && ctrl is ComboBox combo)
+                combo.SelectedIndex = i;
+            else if (kvp.Value is decimal d && ctrl is NumericUpDown nud)
+                nud.Value = d;
+        }
+    }
+
+    private Control? GetControl(string name) => Controls.Find(name, true).FirstOrDefault();
 }
