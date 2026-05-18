@@ -17,6 +17,7 @@ public partial class MoveEditor7 : Form
         InitializeComponent();
         Setup();
         RandSettings.GetFormSettings(this, groupBox1.Controls);
+        PresetManager.ApplyPresetToForm(this);
     }
 
     private readonly byte[][] files;

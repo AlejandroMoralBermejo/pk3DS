@@ -17,6 +17,7 @@ public partial class TrainerRand : Form
         trClassnorep.AddRange(trClass.Where(tclass => !trClassnorep.Contains(tclass) && !tclass.StartsWith("[~")));
         trClassnorep.Sort();
         RandSettings.GetFormSettings(this, Controls);
+        PresetManager.ApplyPresetToForm(this);
     }
 
     //private readonly string[] trName = Main.Config.GetText(TextName.TrainerNames);

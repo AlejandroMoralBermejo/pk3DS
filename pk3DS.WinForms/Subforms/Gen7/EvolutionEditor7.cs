@@ -94,6 +94,7 @@ public partial class EvolutionEditor7 : Form
 
         CB_Species.SelectedIndex = 1;
         RandSettings.GetFormSettings(this, GB_Randomizer.Controls);
+        PresetManager.ApplyPresetToForm(this);
     }
 
     private readonly byte[][] files;

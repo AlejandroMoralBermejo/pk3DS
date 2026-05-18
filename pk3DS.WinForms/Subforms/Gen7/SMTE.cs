@@ -73,6 +73,7 @@ public partial class SMTE : Form
         }
 
         RandSettings.GetFormSettings(this, Tab_Rand.Controls);
+        PresetManager.ApplyPresetToForm(this);
     }
 
     private int GetSlot(object sender)

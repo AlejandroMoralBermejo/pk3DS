@@ -100,8 +100,7 @@ public class PresetUI : Form
         if (preset == null)
         { WinFormsUtil.Alert("Failed to load preset."); return; }
 
-        ApplySettings(preset);
-        WinFormsUtil.Alert($"Preset '{name}' loaded!");
+        WinFormsUtil.Alert($"Preset '{name}' loaded!\n\nOpen any randomizer form to apply the preset settings.");
     }
 
     private void BtnDelete_Click(object sender, EventArgs e)

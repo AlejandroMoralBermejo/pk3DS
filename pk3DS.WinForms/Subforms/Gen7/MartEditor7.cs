@@ -30,6 +30,7 @@ public partial class MartEditor7 : Form
         CB_LocationBP.Items.AddRange(locationsBP);
         CB_Location.SelectedIndex = 0;
         CB_LocationBP.SelectedIndex = 0;
+        PresetManager.ApplyPresetToForm(this);
     }
 
     private readonly string[] itemlist = Main.Config.GetText(TextName.ItemNames);
