@@ -165,15 +165,15 @@ public partial class MartEditor6 : Form
 
     private int entry = -1;
 
-    private readonly Dictionary<int, HashSet<int>> lockedItems = [];
+    private readonly Dictionary<int, HashSet<string>> lockedItems = [];
 
     private void SaveLockedState(int location)
     {
-        var locked = new HashSet<int>();
+        var locked = new HashSet<string>();
         for (int i = 0; i < dgv.Rows.Count; i++)
         {
             if ((bool?)dgv.Rows[i].Cells[2].Value == true)
-                locked.Add(i);
+                locked.Add(dgv.Rows[i].Cells[1].Value?.ToString() ?? "");
         }
         lockedItems[location] = locked;
     }
@@ -182,10 +182,11 @@ public partial class MartEditor6 : Form
     {
         if (!lockedItems.TryGetValue(location, out var locked))
             return;
-        foreach (var index in locked)
+        foreach (DataGridViewRow row in dgv.Rows)
         {
-            if (index < dgv.Rows.Count)
-                dgv.Rows[index].Cells[2].Value = true;
+            var itemName = row.Cells[1].Value?.ToString() ?? "";
+            if (locked.Contains(itemName))
+                row.Cells[2].Value = true;
         }
     }
 
@@ -229,12 +230,17 @@ public partial class MartEditor6 : Form
         Close();
     }
 
-    private void B_Randomize_Click(object sender, EventArgs e)
+private void B_Randomize_Click(object sender, EventArgs e)
     {
         if (DialogResult.Yes != WinFormsUtil.Prompt(MessageBoxButtons.YesNoCancel, "Randomize mart inventories?"))
             return;
 
         int[] validItems = Randomizer.GetRandomItemList();
+        if (validItems.Length == 0)
+        {
+            WinFormsUtil.Alert("No valid items to randomize.");
+            return;
+        }
 
         int ctr = 0;
         Util.Shuffle(validItems);
@@ -249,15 +255,20 @@ public partial class MartEditor6 : Form
                 if ((bool?)dgv.Rows[r].Cells[2].Value == true)
                     continue;
                 int currentItem = Array.IndexOf(itemlist, dgv.Rows[r].Cells[1].Value);
+                if (currentItem < 0)
+                    continue;
                 if (CHK_XItems.Checked && MartEditor7.XItems.Contains(currentItem))
                     continue;
                 if (MartEditor7.BannedItems.Contains(currentItem))
                     continue;
+                if (ctr >= validItems.Length)
+                {
+                    Util.Shuffle(validItems);
+                    ctr = 0;
+                }
                 dgv.Rows[r].Cells[1].Value = itemlist[validItems[ctr++]];
-                if (ctr <= validItems.Length) continue;
-                Util.Shuffle(validItems); ctr = 0;
             }
         }
-        WinFormsUtil.Alert("Randomized!");
+WinFormsUtil.Alert("Randomized!");
     }
 }

@@ -241,6 +241,11 @@ public partial class MartEditor7 : Form
             return;
 
         int[] validItems = Randomizer.GetRandomItemList();
+        if (validItems.Length == 0)
+        {
+            WinFormsUtil.Alert("No valid items to randomize.");
+            return;
+        }
 
         int ctr = 0;
         Util.Shuffle(validItems);
