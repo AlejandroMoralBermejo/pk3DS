@@ -289,7 +289,7 @@ partial class TrainerRand
         this.GB_Tweak.Controls.Add(this.B_StageEditor);
         this.GB_Tweak.Location = new System.Drawing.Point(12, 49);
         this.GB_Tweak.Name = "GB_Tweak";
-        this.GB_Tweak.Size = new System.Drawing.Size(270, 154);
+        this.GB_Tweak.Size = new System.Drawing.Size(270, 180);
         this.GB_Tweak.TabIndex = 323;
         this.GB_Tweak.TabStop = false;
         this.GB_Tweak.Text = "Options";
@@ -368,11 +368,12 @@ partial class TrainerRand
         //
         // B_StageEditor
         //
-        this.B_StageEditor.Location = new System.Drawing.Point(200, 130);
+        this.B_StageEditor.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
+        this.B_StageEditor.Location = new System.Drawing.Point(195, 152);
         this.B_StageEditor.Name = "B_StageEditor";
-        this.B_StageEditor.Size = new System.Drawing.Size(75, 23);
+        this.B_StageEditor.Size = new System.Drawing.Size(65, 23);
         this.B_StageEditor.TabIndex = 346;
-        this.B_StageEditor.Text = "Stages...";
+        this.B_StageEditor.Text = "Stages";
         this.B_StageEditor.UseVisualStyleBackColor = true;
         this.B_StageEditor.Click += new System.EventHandler(this.BtnStageEditor_Click);
         //
