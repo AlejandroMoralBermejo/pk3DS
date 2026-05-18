@@ -48,6 +48,7 @@ partial class TrainerRand
         this.CHK_GymTrainers = new System.Windows.Forms.CheckBox();
         this.CHK_StoryMEvos = new System.Windows.Forms.CheckBox();
         this.CHK_RandomMegaForm = new System.Windows.Forms.CheckBox();
+        this.B_StageEditor = new System.Windows.Forms.Button();
         this.CHK_TypeTheme = new System.Windows.Forms.CheckBox();
         this.CHK_BST = new System.Windows.Forms.CheckBox();
         this.CHK_E = new System.Windows.Forms.CheckBox();
@@ -285,6 +286,7 @@ partial class TrainerRand
         this.GB_Tweak.Controls.Add(this.CHK_G3);
         this.GB_Tweak.Controls.Add(this.CHK_G2);
         this.GB_Tweak.Controls.Add(this.CHK_G1);
+        this.GB_Tweak.Controls.Add(this.B_StageEditor);
         this.GB_Tweak.Location = new System.Drawing.Point(12, 49);
         this.GB_Tweak.Name = "GB_Tweak";
         this.GB_Tweak.Size = new System.Drawing.Size(270, 154);
@@ -363,7 +365,17 @@ partial class TrainerRand
         this.CHK_RandomMegaForm.TabIndex = 294;
         this.CHK_RandomMegaForm.Text = "Random Mega Forms";
         this.CHK_RandomMegaForm.UseVisualStyleBackColor = true;
-        // 
+        //
+        // B_StageEditor
+        //
+        this.B_StageEditor.Location = new System.Drawing.Point(200, 130);
+        this.B_StageEditor.Name = "B_StageEditor";
+        this.B_StageEditor.Size = new System.Drawing.Size(75, 23);
+        this.B_StageEditor.TabIndex = 346;
+        this.B_StageEditor.Text = "Stages...";
+        this.B_StageEditor.UseVisualStyleBackColor = true;
+        this.B_StageEditor.Click += new System.EventHandler(this.BtnStageEditor_Click);
+        //
         // CHK_TypeTheme
         // 
         this.CHK_TypeTheme.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
@@ -807,6 +819,7 @@ partial class TrainerRand
     private System.Windows.Forms.CheckBox CHK_6PKM;
     private System.Windows.Forms.CheckBox CHK_RandomMegaForm;
     private System.Windows.Forms.CheckBox CHK_GymE4Only;
+    private System.Windows.Forms.Button B_StageEditor;
     private System.Windows.Forms.CheckBox CHK_NoFixedDamage;
     private System.Windows.Forms.NumericUpDown NUD_ForceFullyEvolved;
     private System.Windows.Forms.CheckBox CHK_ForceFullyEvolved;

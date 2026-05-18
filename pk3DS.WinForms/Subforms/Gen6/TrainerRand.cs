@@ -178,6 +178,12 @@ public partial class TrainerRand : Form
             CHK_NoFixedDamage.Enabled = CHK_NoFixedDamage.Checked = CB_Moves.SelectedIndex is 1 or 2;
     }
 
+    private void BtnStageEditor_Click(object sender, EventArgs e)
+    {
+        using var editor = new StageEditor();
+        editor.ShowDialog();
+    }
+
     private void CHK_6PKM_CheckedChanged(object sender, EventArgs e)
     {
         //if (CB_Moves.SelectedIndex == 0)

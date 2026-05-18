@@ -575,7 +575,10 @@ public partial class RSTE : Form
             SetFullParties(t, rImportant[i] == null);
             RandomizeTrainerAIClass(t, trClass);
             RandomizeTrainerPrizeItem(t);
-            RandomizeTeam(t, move, learn, itemvals, type, mevo, typerand);
+
+            int avgLevel = (int)t.Team.Average(pk => pk.Level);
+            var stage = StageEditor.GetStageForTrainer(rTags[i], avgLevel, isImportantClass);
+            RandomizeTeam(t, move, learn, itemvals, type, mevo, typerand, stage);
 
             trdata[i] = t.Write();
             trpoke[i] = t.WriteTeam();
@@ -584,7 +587,7 @@ public partial class RSTE : Form
         WinFormsUtil.Alert("Randomized all Trainers according to specification!", "Press the Dump to .TXT button to view the new Trainer information!");
     }
 
-    private static void RandomizeTeam(TrainerData6 t, MoveRandomizer move, LearnsetRandomizer learn, ushort[] itemvals, int type, bool mevo, bool typerand)
+    private static void RandomizeTeam(TrainerData6 t, MoveRandomizer move, LearnsetRandomizer learn, ushort[] itemvals, int type, bool mevo, bool typerand, StageConfig stage)
     {
         int last = t.Team.Length - 1;
         for (int p = 0; p < t.Team.Length; p++)
@@ -593,7 +596,6 @@ public partial class RSTE : Form
             int[] stones = null;
             if (rPKM)
             {
-                // randomize pokemon
                 int species;
                 if (typerand)
                 {
@@ -602,7 +604,7 @@ public partial class RSTE : Form
                     {
                         int tries = 0;
                         do { stones = GetRandomMega(out species); }
-                        while (Main.Config.Personal[species].Types.All(z => z != type) && tries++ < 100);
+                        while (!stage.AllowMegas && tries++ < 100);
                     }
                 }
                 else if (p == last && mevo)
@@ -611,7 +613,7 @@ public partial class RSTE : Form
                 }
                 else
                 {
-                    species = rSpeciesRand.GetRandomSpecies(pk.Species);
+                    species = GetRandomSpeciesForStage(pk.Species, stage);
                 }
 
                 pk.Species = (ushort)species;
@@ -932,6 +934,42 @@ public partial class RSTE : Form
     }
 
     private static Dictionary<int, int[]> MegaDictionary;
+
+    private static int GetRandomSpeciesForStage(int currentSpecies, StageConfig stage)
+    {
+        if (stage == null || !stage.Enabled)
+            return rSpeciesRand.GetRandomSpecies(currentSpecies);
+
+        int species;
+        int attempts = 0;
+        do
+        {
+            species = rSpeciesRand.GetRandomSpecies(currentSpecies);
+            var pinfo = Main.SpeciesStat[species];
+
+            if (pinfo.BST > stage.MaxBST)
+                continue;
+
+            int evoStage = GetEvolutionStage(species);
+            if (evoStage > stage.MaxEvolution)
+                continue;
+
+            if (!stage.AllowLegendaries && Legal.Legendary_6.Contains(species))
+                continue;
+
+            if (!stage.AllowMegas && MegaDictionary.ContainsKey(species))
+                continue;
+
+            return species;
+        } while (attempts++ < 1000);
+
+        return species;
+    }
+
+    private static int GetEvolutionStage(int species)
+    {
+        return Main.SpeciesStat[species].EvoStage;
+    }
 
     private static int[] GetRandomMega(out int species)
     {
