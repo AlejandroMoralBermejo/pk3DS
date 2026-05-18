@@ -171,15 +171,15 @@ public partial class MartEditor7 : Form
         RestoreLockedState(entry);
     }
 
-    private readonly Dictionary<int, HashSet<int>> lockedItems = [];
+    private readonly Dictionary<int, HashSet<string>> lockedItems = [];
 
     private void SaveLockedState(int location)
     {
-        var locked = new HashSet<int>();
+        var locked = new HashSet<string>();
         for (int i = 0; i < dgv.Rows.Count; i++)
         {
             if ((bool?)dgv.Rows[i].Cells[2].Value == true)
-                locked.Add(i);
+                locked.Add(dgv.Rows[i].Cells[1].Value?.ToString() ?? "");
         }
         lockedItems[location] = locked;
     }
@@ -188,10 +188,11 @@ public partial class MartEditor7 : Form
     {
         if (!lockedItems.TryGetValue(location, out var locked))
             return;
-        foreach (var index in locked)
+        foreach (DataGridViewRow row in dgv.Rows)
         {
-            if (index < dgv.Rows.Count)
-                dgv.Rows[index].Cells[2].Value = true;
+            var itemName = row.Cells[1].Value?.ToString() ?? "";
+            if (locked.Contains(itemName))
+                row.Cells[2].Value = true;
         }
     }
 
@@ -257,9 +258,12 @@ public partial class MartEditor7 : Form
                     continue;
                 if (BannedItems.Contains(currentItem))
                     continue;
+                if (ctr >= validItems.Length)
+                {
+                    Util.Shuffle(validItems);
+                    ctr = 0;
+                }
                 dgv.Rows[r].Cells[1].Value = itemlist[validItems[ctr++]];
-                if (ctr <= validItems.Length) continue;
-                Util.Shuffle(validItems); ctr = 0;
             }
         }
         WinFormsUtil.Alert("Randomized!");
@@ -325,9 +329,12 @@ public partial class MartEditor7 : Form
             CB_LocationBP.SelectedIndex = i;
             for (int r = 0; r < dgvbp.Rows.Count; r++)
             {
+                if (ctr >= validItems.Length)
+                {
+                    Util.Shuffle(validItems);
+                    ctr = 0;
+                }
                 dgvbp.Rows[r].Cells[1].Value = itemlist[validItems[ctr++]];
-                if (ctr <= validItems.Length) continue;
-                Util.Shuffle(validItems); ctr = 0;
             }
         }
         WinFormsUtil.Alert("Randomized!");
