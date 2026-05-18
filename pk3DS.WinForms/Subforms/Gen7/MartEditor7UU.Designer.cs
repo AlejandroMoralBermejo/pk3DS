@@ -219,6 +219,16 @@ partial class MartEditor7UU
         this.tabControl1.SelectedIndex = 0;
         this.tabControl1.Size = new System.Drawing.Size(325, 318);
         this.tabControl1.TabIndex = 15;
+        //
+        // B_Exclusions
+        //
+        this.B_Exclusions.Location = new System.Drawing.Point(12, 336);
+        this.B_Exclusions.Name = "B_Exclusions";
+        this.B_Exclusions.Size = new System.Drawing.Size(87, 23);
+        this.B_Exclusions.TabIndex = 16;
+        this.B_Exclusions.Text = "Exclusions";
+        this.B_Exclusions.UseVisualStyleBackColor = true;
+        this.B_Exclusions.Click += new System.EventHandler(this.B_Exclusions_Click);
         // 
         // tabPage1
         // 
@@ -262,7 +272,8 @@ partial class MartEditor7UU
         // 
         this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        this.ClientSize = new System.Drawing.Size(344, 387);
+        this.ClientSize = new System.Drawing.Size(344, 420);
+        this.Controls.Add(this.B_Exclusions);
         this.Controls.Add(this.CHK_XItems);
         this.Controls.Add(this.tabControl1);
         this.Controls.Add(this.B_Cancel);
@@ -305,4 +316,5 @@ partial class MartEditor7UU
     private System.Windows.Forms.TabPage tabPage1;
     private System.Windows.Forms.TabPage tabPage2;
     private System.Windows.Forms.CheckBox CHK_XItems;
+    private System.Windows.Forms.Button B_Exclusions;
 }

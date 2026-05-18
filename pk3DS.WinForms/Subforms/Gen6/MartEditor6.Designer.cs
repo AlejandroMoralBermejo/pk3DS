@@ -35,6 +35,9 @@ partial class MartEditor6
         this.B_Save = new System.Windows.Forms.Button();
         this.B_Cancel = new System.Windows.Forms.Button();
         this.CHK_XItems = new System.Windows.Forms.CheckBox();
+        this.TB_Search = new System.Windows.Forms.TextBox();
+        this.L_Search = new System.Windows.Forms.Label();
+        this.B_Exclusions = new System.Windows.Forms.Button();
         ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
         this.SuspendLayout();
         // 
@@ -42,9 +45,9 @@ partial class MartEditor6
         // 
         this.CB_Location.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
                                                                         | System.Windows.Forms.AnchorStyles.Right)));
-        this.CB_Location.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+        this.CB_Location.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
         this.CB_Location.FormattingEnabled = true;
-        this.CB_Location.Location = new System.Drawing.Point(69, 6);
+        this.CB_Location.Location = new System.Drawing.Point(69, 50);
         this.CB_Location.Name = "CB_Location";
         this.CB_Location.Size = new System.Drawing.Size(243, 21);
         this.CB_Location.TabIndex = 0;
@@ -60,9 +63,9 @@ partial class MartEditor6
                                                                  | System.Windows.Forms.AnchorStyles.Left) 
                                                                 | System.Windows.Forms.AnchorStyles.Right)));
         this.dgv.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-        this.dgv.Location = new System.Drawing.Point(12, 33);
+        this.dgv.Location = new System.Drawing.Point(12, 80);
         this.dgv.Name = "dgv";
-        this.dgv.Size = new System.Drawing.Size(300, 287);
+        this.dgv.Size = new System.Drawing.Size(300, 290);
         this.dgv.TabIndex = 1;
         // 
         // L_Mart
@@ -76,7 +79,7 @@ partial class MartEditor6
         // 
         // B_Randomize
         // 
-        this.B_Randomize.Location = new System.Drawing.Point(12, 329);
+        this.B_Randomize.Location = new System.Drawing.Point(12, 376);
         this.B_Randomize.Name = "B_Randomize";
         this.B_Randomize.Size = new System.Drawing.Size(87, 23);
         this.B_Randomize.TabIndex = 3;
@@ -86,7 +89,7 @@ partial class MartEditor6
         // 
         // B_Save
         // 
-        this.B_Save.Location = new System.Drawing.Point(244, 329);
+        this.B_Save.Location = new System.Drawing.Point(244, 376);
         this.B_Save.Name = "B_Save";
         this.B_Save.Size = new System.Drawing.Size(68, 23);
         this.B_Save.TabIndex = 4;
@@ -96,7 +99,7 @@ partial class MartEditor6
         // 
         // B_Cancel
         // 
-        this.B_Cancel.Location = new System.Drawing.Point(170, 329);
+        this.B_Cancel.Location = new System.Drawing.Point(170, 376);
         this.B_Cancel.Name = "B_Cancel";
         this.B_Cancel.Size = new System.Drawing.Size(68, 23);
         this.B_Cancel.TabIndex = 5;
@@ -115,12 +118,42 @@ partial class MartEditor6
         this.CHK_XItems.TabIndex = 304;
         this.CHK_XItems.Text = "Don\'t Randomize X Items (Speedrun)";
         this.CHK_XItems.UseVisualStyleBackColor = true;
+        //
+        // TB_Search
+        //
+        this.TB_Search.Location = new System.Drawing.Point(69, 27);
+        this.TB_Search.Name = "TB_Search";
+        this.TB_Search.Size = new System.Drawing.Size(243, 20);
+        this.TB_Search.TabIndex = 305;
+        this.TB_Search.PlaceholderText = "Search items...";
+        //
+        // L_Search
+        //
+        this.L_Search.AutoSize = true;
+        this.L_Search.Location = new System.Drawing.Point(12, 30);
+        this.L_Search.Name = "L_Search";
+        this.L_Search.Size = new System.Drawing.Size(51, 13);
+        this.L_Search.TabIndex = 306;
+        this.L_Search.Text = "Search:";
+        //
+        // B_Exclusions
+        //
+        this.B_Exclusions.Location = new System.Drawing.Point(13, 380);
+        this.B_Exclusions.Name = "B_Exclusions";
+        this.B_Exclusions.Size = new System.Drawing.Size(87, 23);
+        this.B_Exclusions.TabIndex = 307;
+        this.B_Exclusions.Text = "Exclusions";
+        this.B_Exclusions.UseVisualStyleBackColor = true;
+        this.B_Exclusions.Click += new System.EventHandler(this.B_Exclusions_Click);
         // 
         // MartEditor6
         // 
         this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        this.ClientSize = new System.Drawing.Size(324, 381);
+        this.ClientSize = new System.Drawing.Size(324, 420);
+        this.Controls.Add(this.TB_Search);
+        this.Controls.Add(this.L_Search);
+        this.Controls.Add(this.B_Exclusions);
         this.Controls.Add(this.CHK_XItems);
         this.Controls.Add(this.B_Cancel);
         this.Controls.Add(this.B_Save);
@@ -149,4 +182,7 @@ partial class MartEditor6
     private System.Windows.Forms.Button B_Save;
     private System.Windows.Forms.Button B_Cancel;
     private System.Windows.Forms.CheckBox CHK_XItems;
+    private System.Windows.Forms.TextBox TB_Search;
+    private System.Windows.Forms.Label L_Search;
+    private System.Windows.Forms.Button B_Exclusions;
 }

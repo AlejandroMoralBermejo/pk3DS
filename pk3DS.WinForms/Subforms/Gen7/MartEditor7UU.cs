@@ -43,6 +43,7 @@ public partial class MartEditor7UU : Form
     private readonly string[] itemlist = Main.Config.GetText(TextName.ItemNames);
     //private readonly string[] movelist = Main.Config.GetText(TextName.MoveNames);
     private readonly byte[] data;
+    private readonly HashSet<int> _excludedItems = new();
 
     #region Tables
     private readonly string[] locations =
@@ -199,6 +200,8 @@ public partial class MartEditor7UU : Form
                     continue;
                 if (BannedItems.Contains(currentItem))
                     continue;
+                if (_excludedItems.Contains(currentItem))
+                    continue;
                 dgv.Rows[r].Cells[1].Value = itemlist[validItems[ctr++]];
                 if (ctr <= validItems.Length) continue;
                 Util.Shuffle(validItems); ctr = 0;
@@ -247,4 +250,25 @@ public partial class MartEditor7UU : Form
     /// All X Items usable in Generations 6 and 7. Speedrunners utilize these Items a lot, so make sure they are still available.
     /// </summary>
     internal static readonly HashSet<int> XItems = [055, 056, 057, 058, 059, 060, 061, 062];
+
+    private void B_Exclusions_Click(object sender, EventArgs e)
+    {
+        using var form = new Form { Text = "Select Items to Exclude from Randomization", ClientSize = new Size(320, 450), StartPosition = FormStartPosition.CenterParent };
+        var checkedList = new CheckedListBox { Top = 10, Left = 10, Width = 300, Height = 380, CheckOnClick = true };
+        checkedList.Items.AddRange(itemlist);
+        for (int i = 0; i < checkedList.Items.Count; i++)
+            checkedList.SetItemChecked(i, _excludedItems.Contains(i));
+        var btnOK = new Button { Text = "OK", Top = 400, Left = 210, DialogResult = DialogResult.OK };
+        btnOK.Click += (s, args) => form.Close();
+        form.Controls.AddRange(new Control[] { checkedList, btnOK });
+        if (form.ShowDialog() == DialogResult.OK)
+        {
+            _excludedItems.Clear();
+            for (int i = 0; i < checkedList.Items.Count; i++)
+            {
+                if (checkedList.GetItemChecked(i))
+                    _excludedItems.Add(i);
+            }
+        }
+    }
 }

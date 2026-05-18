@@ -46,19 +46,38 @@ partial class MartEditor7
         this.dgvItemBP = new System.Windows.Forms.DataGridViewComboBoxColumn();
         this.dgvPriceBP = new System.Windows.Forms.DataGridViewTextBoxColumn();
         this.CHK_XItems = new System.Windows.Forms.CheckBox();
+        this.TB_Search = new System.Windows.Forms.TextBox();
+        this.L_Search = new System.Windows.Forms.Label();
+        this.B_Exclusions = new System.Windows.Forms.Button();
         ((System.ComponentModel.ISupportInitialize)(this.dgv)).BeginInit();
         ((System.ComponentModel.ISupportInitialize)(this.dgvbp)).BeginInit();
         this.SuspendLayout();
         // 
         // CB_Location
-        // 
-        this.CB_Location.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
+        //
+        this.CB_Location.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDown;
         this.CB_Location.FormattingEnabled = true;
-        this.CB_Location.Location = new System.Drawing.Point(69, 6);
+        this.CB_Location.Location = new System.Drawing.Point(69, 50);
         this.CB_Location.Name = "CB_Location";
         this.CB_Location.Size = new System.Drawing.Size(243, 21);
         this.CB_Location.TabIndex = 0;
         this.CB_Location.SelectedIndexChanged += new System.EventHandler(this.ChangeIndex);
+        //
+        // TB_Search
+        //
+        this.TB_Search.Location = new System.Drawing.Point(69, 27);
+        this.TB_Search.Name = "TB_Search";
+        this.TB_Search.Size = new System.Drawing.Size(243, 20);
+        this.TB_Search.TabIndex = 305;
+        //
+        // L_Search
+        //
+        this.L_Search.AutoSize = true;
+        this.L_Search.Location = new System.Drawing.Point(12, 30);
+        this.L_Search.Name = "L_Search";
+        this.L_Search.Size = new System.Drawing.Size(51, 13);
+        this.L_Search.TabIndex = 306;
+        this.L_Search.Text = "Search:";
         // 
         // dgv
         // 
@@ -70,9 +89,9 @@ partial class MartEditor7
         this.dgv.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.dgvIndex,
             this.dgvItem});
-        this.dgv.Location = new System.Drawing.Point(12, 33);
+        this.dgv.Location = new System.Drawing.Point(12, 80);
         this.dgv.Name = "dgv";
-        this.dgv.Size = new System.Drawing.Size(300, 284);
+        this.dgv.Size = new System.Drawing.Size(300, 240);
         this.dgv.TabIndex = 1;
         // 
         // dgvIndex
@@ -200,7 +219,7 @@ partial class MartEditor7
         this.dgvPriceBP.Width = 65;
         // 
         // CHK_XItems
-        // 
+        //
         this.CHK_XItems.AutoSize = true;
         this.CHK_XItems.Checked = true;
         this.CHK_XItems.CheckState = System.Windows.Forms.CheckState.Checked;
@@ -210,12 +229,25 @@ partial class MartEditor7
         this.CHK_XItems.TabIndex = 304;
         this.CHK_XItems.Text = "Don\'t Randomize X Items (Speedrun)";
         this.CHK_XItems.UseVisualStyleBackColor = true;
-        // 
+        //
+        // B_Exclusions
+        //
+        this.B_Exclusions.Location = new System.Drawing.Point(12, 360);
+        this.B_Exclusions.Name = "B_Exclusions";
+        this.B_Exclusions.Size = new System.Drawing.Size(87, 23);
+        this.B_Exclusions.TabIndex = 307;
+        this.B_Exclusions.Text = "Exclusions";
+        this.B_Exclusions.UseVisualStyleBackColor = true;
+        this.B_Exclusions.Click += new System.EventHandler(this.B_Exclusions_Click);
+        //
         // MartEditor7
         // 
         this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
         this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-        this.ClientSize = new System.Drawing.Size(639, 361);
+        this.ClientSize = new System.Drawing.Size(639, 400);
+        this.Controls.Add(this.TB_Search);
+        this.Controls.Add(this.L_Search);
+        this.Controls.Add(this.B_Exclusions);
         this.Controls.Add(this.CHK_XItems);
         this.Controls.Add(this.dgvbp);
         this.Controls.Add(this.B_RandomizeBP);
@@ -257,4 +289,7 @@ partial class MartEditor7
     private System.Windows.Forms.DataGridViewComboBoxColumn dgvItemBP;
     private System.Windows.Forms.DataGridViewTextBoxColumn dgvPriceBP;
     private System.Windows.Forms.CheckBox CHK_XItems;
+    private System.Windows.Forms.TextBox TB_Search;
+    private System.Windows.Forms.Label L_Search;
+    private System.Windows.Forms.Button B_Exclusions;
 }
