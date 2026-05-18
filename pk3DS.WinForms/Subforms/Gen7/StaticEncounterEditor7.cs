@@ -163,6 +163,7 @@ public partial class StaticEncounterEditor7 : Form
         TC_Tabs.SelectedIndex = TC_Tabs.TabCount - 1;
 
         RandSettings.GetFormSettings(this, Tab_Randomizer.Controls);
+        PresetManager.ApplyPresetToForm(this);
         // ExportEncounters();
     }
 
@@ -814,4 +815,46 @@ public partial class StaticEncounterEditor7 : Form
         for (int i = 0; i < mcb.Length; i++)
             mcb[i].SelectedIndex = moves[i];
     }
+
+    public Dictionary<string, object> GetSettings()
+    {
+        return new Dictionary<string, object>
+        {
+            ["CHK_BasicStarter"] = CHK_BasicStarter.Checked,
+            ["CHK_Level"] = CHK_Level.Checked,
+            ["NUD_LevelBoost"] = NUD_LevelBoost.Value,
+            ["CHK_G1"] = CHK_G1.Checked,
+            ["CHK_G2"] = CHK_G2.Checked,
+            ["CHK_G3"] = CHK_G3.Checked,
+            ["CHK_G4"] = CHK_G4.Checked,
+            ["CHK_G5"] = CHK_G5.Checked,
+            ["CHK_G6"] = CHK_G6.Checked,
+            ["CHK_G7"] = CHK_G7.Checked,
+            ["CHK_L"] = CHK_L.Checked,
+            ["CHK_E"] = CHK_E.Checked,
+            ["CHK_BST"] = CHK_BST.Checked,
+            ["CHK_Item"] = CHK_Item.Checked,
+            ["CHK_AllowMega"] = CHK_AllowMega.Checked,
+            ["CHK_RandomAbility"] = CHK_RandomAbility.Checked,
+            ["CHK_RandomAura"] = CHK_RandomAura.Checked,
+            ["CHK_SpecialMove"] = CHK_SpecialMove.Checked,
+        };
+    }
+
+    public void SetSettings(Dictionary<string, object> settings)
+    {
+        foreach (var kvp in settings)
+        {
+            var ctrl = GetControl(kvp.Key);
+            if (ctrl == null) continue;
+            if (kvp.Value is bool b && ctrl is CheckBox cb)
+                cb.Checked = b;
+            else if (kvp.Value is int i && ctrl is ComboBox combo)
+                combo.SelectedIndex = i;
+            else if (kvp.Value is decimal d && ctrl is NumericUpDown nud)
+                nud.Value = d;
+        }
+    }
+
+    private Control? GetControl(string name) => Controls.Find(name, true).FirstOrDefault();
 }

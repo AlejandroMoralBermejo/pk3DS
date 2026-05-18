@@ -271,6 +271,7 @@ public partial class EvolutionEditor7 : Form
     {
         SetList();
         RandSettings.SetFormSettings(this, GB_Randomizer.Controls);
+        PresetManager.CaptureFormSettings(this);
     }
 
     private void ChangeMethod(object sender, EventArgs e)
@@ -333,4 +334,29 @@ public partial class EvolutionEditor7 : Form
 
         pic[index].Image = WinFormsUtil.GetSprite(species, form, 0, 0, Main.Config);
     }
+
+    public Dictionary<string, object> GetSettings()
+    {
+        return new Dictionary<string, object>
+        {
+            ["CHK_E"] = CHK_E.Checked,
+            ["CHK_L"] = CHK_L.Checked,
+            ["CHK_BST"] = CHK_BST.Checked,
+            ["CHK_Type"] = CHK_Type.Checked,
+            ["CHK_Exp"] = CHK_Exp.Checked,
+        };
+    }
+
+    public void SetSettings(Dictionary<string, object> settings)
+    {
+        foreach (var kvp in settings)
+        {
+            var ctrl = GetControl(kvp.Key);
+            if (ctrl == null) continue;
+            if (kvp.Value is bool b && ctrl is CheckBox cb)
+                cb.Checked = b;
+        }
+    }
+
+    private Control? GetControl(string name) => Controls.Find(name, true).FirstOrDefault();
 }

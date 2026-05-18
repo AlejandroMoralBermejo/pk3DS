@@ -1,5 +1,6 @@
 ﻿using pk3DS.Core;
 using System;
+using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Forms;
 using pk3DS.Core.Structures;
@@ -230,6 +231,7 @@ public partial class MoveEditor7 : Form
     {
         SetEntry();
         RandSettings.SetFormSettings(this, groupBox1.Controls);
+        PresetManager.CaptureFormSettings(this);
     }
 
     private void B_Table_Click(object sender, EventArgs e)
@@ -282,4 +284,26 @@ public partial class MoveEditor7 : Form
         CB_Move.SelectedIndex = 0;
         WinFormsUtil.Alert("All Moves have had their Base PP values modified!");
     }
+
+    public Dictionary<string, object> GetSettings()
+    {
+        return new Dictionary<string, object>
+        {
+            ["CHK_Category"] = CHK_Category.Checked,
+            ["CHK_Type"] = CHK_Type.Checked,
+        };
+    }
+
+    public void SetSettings(Dictionary<string, object> settings)
+    {
+        foreach (var kvp in settings)
+        {
+            var ctrl = GetControl(kvp.Key);
+            if (ctrl == null) continue;
+            if (kvp.Value is bool b && ctrl is CheckBox cb)
+                cb.Checked = b;
+        }
+    }
+
+    private Control? GetControl(string name) => Controls.Find(name, true).FirstOrDefault();
 }

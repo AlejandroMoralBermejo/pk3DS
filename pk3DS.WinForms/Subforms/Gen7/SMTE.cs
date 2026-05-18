@@ -451,8 +451,9 @@ public partial class SMTE : Form
         SaveEntry();
         if (TrainerNames.Modified)
             Main.Config.SetText(TextName.TrainerNames, TrainerNames.Lines);
-        base.OnFormClosing(e);
         RandSettings.SetFormSettings(this, Tab_Rand.Controls);
+        PresetManager.CaptureFormSettings(this);
+        base.OnFormClosing(e);
     }
 
     // Dumping
@@ -890,4 +891,58 @@ public partial class SMTE : Form
         species = MegaDictionary.Keys.ElementAt(rnd);
         return MegaDictionary.Values.ElementAt(rnd);
     }
+
+    public Dictionary<string, object> GetSettings()
+    {
+        return new Dictionary<string, object>
+        {
+            ["CHK_RandomPKM"] = CHK_RandomPKM.Checked,
+            ["CHK_G1"] = CHK_G1.Checked,
+            ["CHK_G2"] = CHK_G2.Checked,
+            ["CHK_G3"] = CHK_G3.Checked,
+            ["CHK_G4"] = CHK_G4.Checked,
+            ["CHK_G5"] = CHK_G5.Checked,
+            ["CHK_G6"] = CHK_G6.Checked,
+            ["CHK_G7"] = CHK_G7.Checked,
+            ["CHK_L"] = CHK_L.Checked,
+            ["CHK_E"] = CHK_E.Checked,
+            ["CHK_BST"] = CHK_BST.Checked,
+            ["CHK_RandomShiny"] = CHK_RandomShiny.Checked,
+            ["NUD_Shiny"] = NUD_Shiny.Value,
+            ["CHK_Level"] = CHK_Level.Checked,
+            ["NUD_LevelBoost"] = NUD_LevelBoost.Value,
+            ["CHK_RandomClass"] = CHK_RandomClass.Checked,
+            ["CHK_IgnoreSpecialClass"] = CHK_IgnoreSpecialClass.Checked,
+            ["CHK_RandomAbilities"] = CHK_RandomAbilities.Checked,
+            ["CHK_RandomItems"] = CHK_RandomItems.Checked,
+            ["CHK_RandomMegaForm"] = CHK_RandomMegaForm.Checked,
+            ["CHK_ForceFullyEvolved"] = CHK_ForceFullyEvolved.Checked,
+            ["NUD_ForceFullyEvolved"] = NUD_ForceFullyEvolved.Value,
+            ["CHK_RandomClass"] = CHK_RandomClass.Checked,
+            ["CB_Moves"] = CB_Moves.SelectedIndex,
+            ["CHK_Damage"] = CHK_Damage.Checked,
+            ["NUD_Damage"] = NUD_Damage.Value,
+            ["CHK_STAB"] = CHK_STAB.Checked,
+            ["NUD_STAB"] = NUD_STAB.Value,
+            ["CHK_TypeTheme"] = CHK_TypeTheme.Checked,
+            ["CHK_6PKM"] = CHK_6PKM.Checked,
+        };
+    }
+
+    public void SetSettings(Dictionary<string, object> settings)
+    {
+        foreach (var kvp in settings)
+        {
+            var ctrl = GetControl(kvp.Key);
+            if (ctrl == null) continue;
+            if (kvp.Value is bool b && ctrl is CheckBox cb)
+                cb.Checked = b;
+            else if (kvp.Value is int i && ctrl is ComboBox combo)
+                combo.SelectedIndex = i;
+            else if (kvp.Value is decimal d && ctrl is NumericUpDown nud)
+                nud.Value = d;
+        }
+    }
+
+    private Control? GetControl(string name) => Controls.Find(name, true).FirstOrDefault();
 }

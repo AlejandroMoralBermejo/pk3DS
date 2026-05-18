@@ -40,6 +40,7 @@ public partial class SMWE : Form
 
         LoadData();
         RandSettings.GetFormSettings(this, GB_Tweak.Controls);
+        PresetManager.ApplyPresetToForm(this);
 
         var weather = string.Format("If weather is active, create a random number.{0}If 0, use slot 0.{0}If <= 10, use slot 1.{0}Else, pick an SOS table and a slot.", Environment.NewLine);
         new ToolTip().SetToolTip(L_AddSOS, weather);
@@ -515,6 +516,7 @@ public partial class SMWE : Form
     private void SMWE_FormClosing(object sender, FormClosingEventArgs e)
     {
         RandSettings.SetFormSettings(this, GB_Tweak.Controls);
+        PresetManager.CaptureFormSettings(this);
     }
 
     public Dictionary<string, object> GetSettings()

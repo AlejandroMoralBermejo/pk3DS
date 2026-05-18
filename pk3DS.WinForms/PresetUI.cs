@@ -157,11 +157,41 @@ public class PresetUI : Form
                 foreach (var kvp in settings)
                     preset.Settings.Add(new PresetEntry { Form = "SMWE", Name = kvp.Key, Value = kvp.Value?.ToString() ?? "" });
             }
+            if (form is SMTE smte)
+            {
+                var settings = smte.GetSettings();
+                foreach (var kvp in settings)
+                    preset.Settings.Add(new PresetEntry { Form = "SMTE", Name = kvp.Key, Value = kvp.Value?.ToString() ?? "" });
+            }
             if (form is TrainerRand tr6)
             {
                 var settings = tr6.GetSettings();
                 foreach (var kvp in settings)
                     preset.Settings.Add(new PresetEntry { Form = "TR6", Name = kvp.Key, Value = kvp.Value?.ToString() ?? "" });
+            }
+            if (form is StaticEncounterEditor7 see7)
+            {
+                var settings = see7.GetSettings();
+                foreach (var kvp in settings)
+                    preset.Settings.Add(new PresetEntry { Form = "SEE7", Name = kvp.Key, Value = kvp.Value?.ToString() ?? "" });
+            }
+            if (form is MartEditor7 me7)
+            {
+                var settings = me7.GetSettings();
+                foreach (var kvp in settings)
+                    preset.Settings.Add(new PresetEntry { Form = "ME7", Name = kvp.Key, Value = kvp.Value?.ToString() ?? "" });
+            }
+            if (form is MoveEditor7 mve7)
+            {
+                var settings = mve7.GetSettings();
+                foreach (var kvp in settings)
+                    preset.Settings.Add(new PresetEntry { Form = "MVE7", Name = kvp.Key, Value = kvp.Value?.ToString() ?? "" });
+            }
+            if (form is EvolutionEditor7 evo7)
+            {
+                var settings = evo7.GetSettings();
+                foreach (var kvp in settings)
+                    preset.Settings.Add(new PresetEntry { Form = "EVO7", Name = kvp.Key, Value = kvp.Value?.ToString() ?? "" });
             }
         }
     }
@@ -177,12 +207,47 @@ public class PresetUI : Form
                     .ToDictionary(s => s.Name, s => ParseValue(s.Value, s.Name, smwe));
                 smwe.SetSettings(dict);
             }
+            if (form is SMTE smte)
+            {
+                var dict = preset.Settings
+                    .Where(s => s.Form == "SMTE")
+                    .ToDictionary(s => s.Name, s => ParseValue(s.Value, s.Name, smte));
+                smte.SetSettings(dict);
+            }
             if (form is TrainerRand tr6)
             {
                 var dict = preset.Settings
                     .Where(s => s.Form == "TR6")
                     .ToDictionary(s => s.Name, s => ParseValue(s.Value, s.Name, tr6));
                 tr6.SetSettings(dict);
+            }
+            if (form is StaticEncounterEditor7 see7)
+            {
+                var dict = preset.Settings
+                    .Where(s => s.Form == "SEE7")
+                    .ToDictionary(s => s.Name, s => ParseValue(s.Value, s.Name, see7));
+                see7.SetSettings(dict);
+            }
+            if (form is MartEditor7 me7)
+            {
+                var dict = preset.Settings
+                    .Where(s => s.Form == "ME7")
+                    .ToDictionary(s => s.Name, s => ParseValue(s.Value, s.Name, me7));
+                me7.SetSettings(dict);
+            }
+            if (form is MoveEditor7 mve7)
+            {
+                var dict = preset.Settings
+                    .Where(s => s.Form == "MVE7")
+                    .ToDictionary(s => s.Name, s => ParseValue(s.Value, s.Name, mve7));
+                mve7.SetSettings(dict);
+            }
+            if (form is EvolutionEditor7 evo7)
+            {
+                var dict = preset.Settings
+                    .Where(s => s.Form == "EVO7")
+                    .ToDictionary(s => s.Name, s => ParseValue(s.Value, s.Name, evo7));
+                evo7.SetSettings(dict);
             }
         }
     }
